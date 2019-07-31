@@ -1,0 +1,102 @@
+﻿<UserControl x:Class="FlightSimulator.Views.Manual"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FlightSimulator.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="425" d:DesignWidth="400">
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="TextBlock">
+
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="TextAlignment" Value="Center" />
+
+            </Style>
+            <Style TargetType="Slider">
+                <Setter Property="Minimum" Value="-1"/>
+               <Setter Property="TickPlacement" Value="BottomRight"/>
+                <Setter Property="TickFrequency" Value="0.1" />
+                <Setter Property="Maximum" Value="1"/>
+                <Setter Property="Value" Value="0"/>
+                <Setter Property="Margin" Value="3"/>
+                <Setter Property="Width" Value="250"/>
+            </Style>
+          
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height = "20*"></RowDefinition>
+            <RowDefinition Height = "20*"></RowDefinition>
+            <RowDefinition Height = "320*"></RowDefinition>
+            <RowDefinition Height = "20*"></RowDefinition>
+            <RowDefinition Height = "20*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20*"></ColumnDefinition>
+            <ColumnDefinition Width="20*"></ColumnDefinition>
+            <ColumnDefinition Width="320*"></ColumnDefinition>
+            <ColumnDefinition Width="20*"></ColumnDefinition>
+            <ColumnDefinition Width="20*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Viewbox Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <local:Joystick x:Name="Joystick" Aileron="{Binding AlieronCommand, Mode=OneWayToSource, StringFormat=0.00 }"
+                            Elevator="{Binding ElevatorCommand, Mode=OneWayToSource, StringFormat=0.00}" 
+                            ></local:Joystick>
+        </Viewbox>
+        <Viewbox Grid.Column="2" Grid.Row="0">
+            <TextBlock Name="aileron"  Text="←aileron→" FontStyle="Italic" FontWeight="Bold"></TextBlock>
+        </Viewbox>
+
+        <Viewbox Grid.Column="0" Grid.Row="2">
+            <TextBlock Name="throttle"  Text="←throttle→" FontStyle="Italic" FontWeight="Bold" >
+                <TextBlock.LayoutTransform>
+                    <RotateTransform Angle="90"></RotateTransform>
+                </TextBlock.LayoutTransform>
+            </TextBlock>
+        </Viewbox>
+       
+            <TextBlock Name="elevator"  Text="←elevator→" FontStyle="Italic" FontWeight="Bold" Grid.Column="4" Grid.Row="2">
+                <TextBlock.LayoutTransform>
+                    <RotateTransform Angle="90"></RotateTransform>
+                </TextBlock.LayoutTransform>
+            </TextBlock>
+       
+        <Viewbox Grid.Column="2" Grid.Row="4">
+            <TextBlock Name="rudder"  Text="←rudder→" FontStyle="Italic" FontWeight="Bold"></TextBlock>
+        </Viewbox>
+      
+            <TextBlock  Name="aileronInd" Text="{Binding ElementName=Joystick, Path=Aileron, StringFormat=0.00}" Grid.Column="3" Grid.Row="0"
+                        FontStyle="Normal" FontWeight="Bold" FontSize="15" >
+            
+            </TextBlock>
+       
+      
+            <TextBlock  Name="elevatorInd" Grid.Column="4" Grid.Row="1" Text="{Binding ElementName= Joystick, Path=Elevator, StringFormat=0.00}"
+                        FontStyle="Normal" FontWeight="Bold" FontSize="15" >
+                <TextBlock.LayoutTransform>
+                    <RotateTransform Angle="90"></RotateTransform>
+                </TextBlock.LayoutTransform>
+            </TextBlock>
+       
+        
+
+        <TextBlock Name="throttleInd"  Text="{Binding ElementName=throttleSlider, Path=Value, StringFormat=0.00}"
+                       FontStyle="Normal" FontWeight="Bold" FontSize="15" Grid.Column="1" Grid.Row="1" ></TextBlock>
+
+
+        <TextBlock Name="rudderInd"  Text="{Binding ElementName=rudderSlider, Path=Value, StringFormat=0.00}" 
+                       FontStyle="Normal" FontWeight="Bold" FontSize="15"  Grid.Column="3" Grid.Row="3"></TextBlock>
+    
+        <Viewbox  Grid.Column="2" Grid.Row="3">
+            <Slider Name="rudderSlider" Value ="{Binding rudder>}"  ></Slider>
+        </Viewbox>
+        <Viewbox  Grid.Column="1" Grid.Row="2">
+            <Slider Name="throttleSlider"  Value ="{Binding throttle, FallbackValue=0.5}" TickPlacement="TopLeft" Minimum="0"  >
+                <Slider.LayoutTransform>
+                    <RotateTransform Angle="-90" ></RotateTransform>
+                </Slider.LayoutTransform>
+            </Slider>
+        </Viewbox>
+    </Grid>
+</UserControl>
